@@ -5,6 +5,7 @@
 #include "ElgatoSD/ESDConnectionManager.h"
 #include "SimulatorInterface/SimulatorInterface.h"
 #include "SimulatorInterface/SimulatorProtocolTypes.h"
+#include "StreamdeckContext/ExportMonitors/EncoderDisplayMonitor.h"
 #include "StreamdeckContext/ExportMonitors/ImageStateMonitor.h"
 #include "StreamdeckContext/ExportMonitors/IncrementMonitor.h"
 #include "StreamdeckContext/ExportMonitors/TitleMonitor.h"
@@ -112,8 +113,9 @@ class StreamdeckContext
     json settings_;                  // Stored settings for this context.
 
     // Monitors.
-    ImageStateMonitor comparison_monitor_{}; // Monitors DCS ID to determine the image state of Streamdeck context.
-    TitleMonitor title_monitor_{};           // Monitors DCS ID to determine the title text of Streamdeck context.
+    ImageStateMonitor comparison_monitor_{};       // Monitors DCS ID to determine the image state of Streamdeck context.
+    TitleMonitor title_monitor_{};                 // Monitors DCS ID to determine the title text of Streamdeck context.
+    EncoderDisplayMonitor encoder_display_monitor_{}; // Monitors DCS ID to determine encoder display and indicator.
     // SendAction.
     std::unique_ptr<SendActionInterface> send_action_{}; // Holds the actions to take on Button Pressed/Released events.
 

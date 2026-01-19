@@ -29,7 +29,7 @@ json get_installed_modules(const std::string &dcs_install_path, const std::strin
     return installed_modules_and_result;
 }
 
-json get_clickabledata(const std::string &dcs_install_path,
+json get_clickabledata(const std::string &dcs_path,
                        const std::string &module_name,
                        const std::string &lua_script)
 {
@@ -45,7 +45,7 @@ json get_clickabledata(const std::string &dcs_install_path,
     luaL_openlibs(lua_state);
 
     // Write variables to lua, the below sends to lua: [module_name = "A-10C"]
-    lua_pushstring(lua_state, dcs_install_path.c_str());
+    lua_pushstring(lua_state, dcs_path.c_str());
     lua_setglobal(lua_state, "dcs_install_path");
     lua_pushstring(lua_state, module_name.c_str());
     lua_setglobal(lua_state, "module_name");

@@ -35,20 +35,25 @@ class StreamdeckInterface : public ESDBasePlugin
                         const json &inPayload,
                         const std::string &inDeviceID) override;
 
-	void DialRotateForAction(const std::string& inAction,
-		const std::string& inContext,
-		const json& inPayload,
-		const std::string& inDeviceID) override;
+    void DialRotateForAction(const std::string &inAction,
+                            const std::string &inContext,
+                            const json &inPayload,
+                            const std::string &inDeviceID) override;
 
-	void DialPressForAction(const std::string& inAction,
-		const std::string& inContext,
-		const json& inPayload,
-		const std::string& inDeviceID) override;
+    void DialPressForAction(const std::string &inAction,
+                           const std::string &inContext,
+                           const json &inPayload,
+                           const std::string &inDeviceID) override;
 
-	void TouchTapForAction(const std::string& inAction,
-		const std::string& inContext,
-		const json& inPayload,
-		const std::string& inDeviceID) override;
+    void DialUpForAction(const std::string &inAction,
+                        const std::string &inContext,
+                        const json &inPayload,
+                        const std::string &inDeviceID) override;
+
+    void TouchTapForAction(const std::string &inAction,
+                          const std::string &inContext,
+                          const json &inPayload,
+                          const std::string &inDeviceID) override;
 
     /**
      * The 'willAppear' event is the first event a key will receive, right before it gets showed on your Stream Deck

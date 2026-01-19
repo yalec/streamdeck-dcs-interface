@@ -1,0 +1,128 @@
+.container {
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #d0d0d0;
+  background-color: #2d2d2d;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+}
+
+h2 {
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #9d9d9d;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #d0d0d0;
+  background-color: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #0e639c;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #0e639c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #1177bb;
+}
+
+button:active {
+  background-color: #094771;
+}
+
+.tableContainer {
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #2a2a2a;
+  z-index: 10;
+}
+
+th {
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #ffffff;
+  border-bottom: 2px solid #4a4a4a;
+}
+
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #3a3a3a;
+  font-size: 13px;
+}
+
+.noData {
+  text-align: center;
+  color: #9d9d9d;
+  font-style: italic;
+  padding: 20px !important;
+}
+
+.warning {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #3a2a2a;
+  border: 1px solid #5a3a3a;
+  border-radius: 4px;
+  color: #d0a090;
+}
+
+.warning p {
+  margin: 5px 0;
+}

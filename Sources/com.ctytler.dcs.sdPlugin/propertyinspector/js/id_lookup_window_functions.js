@@ -15,12 +15,14 @@ function loaded() {
  */
 function restoreGlobalSettings(settings) {
     document.getElementById("dcs_install_path").value = settings.dcs_install_path;
+    document.getElementById("dcs_savedgames_path").value = settings.dcs_savedgames_path || "";
     RequestInstalledModules();
     console.log("Restored global settings: ", settings);
 }
 
 function UpdateGlobalSettings() {
     window.opener.global_settings["dcs_install_path"] = document.getElementById("dcs_install_path").value;
+    window.opener.global_settings["dcs_savedgames_path"] = document.getElementById("dcs_savedgames_path").value;
     let select_elem = document.getElementById("select_module");
     let selected_module = ""
     if (select_elem.options.length > 0) {
@@ -37,7 +39,11 @@ function UpdateGlobalSettings() {
  */
 function RequestInstalledModules() {
     var dcs_install_path = document.getElementById("dcs_install_path").value;
-    sendmessage("RequestInstalledModules", dcs_install_path);
+    var dcs_savedgames_path = document.getElementById("dcs_savedgames_path").value;
+    sendmessage("RequestInstalledModules", { 
+        dcs_install_path: dcs_install_path, 
+        dcs_savedgames_path: dcs_savedgames_path 
+    });
     UpdateGlobalSettings();
 }
 
@@ -112,7 +118,12 @@ function callbackRequestIdLookup(clear_search=false) {
         }
         else {
             var dcs_install_path = document.getElementById("dcs_install_path").value;
-            var payload = { "dcs_install_path": dcs_install_path, "module": module };
+            var dcs_savedgames_path = document.getElementById("dcs_savedgames_path").value;
+            var payload = { 
+                "dcs_install_path": dcs_install_path, 
+                "dcs_savedgames_path": dcs_savedgames_path,
+                "module": module 
+            };
             sendmessage("RequestIdLookup", payload);
             console.log("Request ID Lookup for: ", payload);
         }

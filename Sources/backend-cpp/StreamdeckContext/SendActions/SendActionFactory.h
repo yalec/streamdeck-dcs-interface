@@ -21,6 +21,6 @@ class SendActionFactory
     std::unique_ptr<SendActionInterface> create(const std::string &action_uuid);
 
   private:
-    enum class ButtonAction { UNDEFINED, MOMENTARY, INCREMENT, SWITCH };
+    enum class ButtonAction { UNDEFINED, MOMENTARY, INCREMENT, SWITCH, ENCODER };
     std::unordered_map<std::string, ButtonAction> button_action_from_uuid_;
 };

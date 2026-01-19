@@ -40,22 +40,36 @@ function gotCallbackFromIdLookupWindow(parameter) {
     }
 
     if (parameter.event == "RequestInstalledModules") {
-        sendPayloadToPlugin({ event: "RequestInstalledModules", dcs_install_path: parameter.payload });
+        sendPayloadToPlugin({ 
+            event: "RequestInstalledModules", 
+            dcs_install_path: parameter.payload.dcs_install_path,
+            dcs_savedgames_path: parameter.payload.dcs_savedgames_path
+        });
     }
 
     if (parameter.event == 'RequestIdLookup') {
-        sendPayloadToPlugin({ event: "RequestIdLookup", dcs_install_path: parameter.payload.dcs_install_path, module: parameter.payload.module });
+        sendPayloadToPlugin({ 
+            event: "RequestIdLookup", 
+            dcs_install_path: parameter.payload.dcs_install_path, 
+            dcs_savedgames_path: parameter.payload.dcs_savedgames_path,
+            module: parameter.payload.module 
+        });
     }
 
     if (parameter.event == 'ImportDcsCommand') {
         settings["button_id"] = parameter.payload.button_id;
         settings["device_id"] = parameter.payload.device_id;
+        settings["send_address"] = parameter.payload.device_id + "," + parameter.payload.button_id;
         settings["press_value"] = parameter.payload.click_value;
         settings["release_value"] = "0";
         settings["dcs_id_increment_monitor"] = parameter.payload.dcs_id;
         settings["increment_value"] = parameter.payload.click_value;
         settings["increment_min"] = parameter.payload.limit_min;
         settings["increment_max"] = parameter.payload.limit_max;
+        // For encoder actions, also set CW and CCW increment values using absolute value
+        var abs_click_value = Math.abs(parseFloat(parameter.payload.click_value));
+        settings["increment_cw"] = abs_click_value.toString();
+        settings["increment_ccw"] = (-abs_click_value).toString();
         if (parameter.payload.switch_direction == "1st_to_2nd") {
             settings["send_when_first_state_value"] = parameter.payload.click_value;
         }

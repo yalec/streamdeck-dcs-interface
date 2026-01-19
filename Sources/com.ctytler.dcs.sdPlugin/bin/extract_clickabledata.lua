@@ -10,7 +10,8 @@ class_type =
 	BTN    = 1,
 	TUMB   = 2,
 	SNGBTN = 3,
-	LEV    = 4
+	LEV    = 4,
+	MOVABLE_LEV = 5
 }
 
 -- Mock out the get_option_value and get_aircraft_type functions that don't exist in this environment.
@@ -77,6 +78,8 @@ function get_class_enum_label(class)
 		return "SNGBTN"
 	elseif class == 4 then
 		return "LEV"
+	elseif class == 5 then
+		return "MOVABLE_LEV"
 	else
 		return ""
 	end
@@ -102,6 +105,7 @@ function collect_element_attributes(elements)
 		local args = elements[element_id].arg
 		local arg_values = elements[element_id].arg_value
 		local arg_lims = elements[element_id].arg_lim
+		local gains = elements[element_id].gain
 		local device_id = elements[element_id].device
 		local device_name = get_device_name(device_id)
 		local command_ids = elements[element_id].action
@@ -113,6 +117,13 @@ function collect_element_attributes(elements)
 			local arg = get_index_value(args,idx)
 			local arg_value = get_index_value(arg_values,idx)
 			local arg_lim = get_index_value(arg_lims,idx)
+			local gain = get_index_value(gains,idx)
+			
+			-- For LEV and MOVABLE_LEV types, use gain as the click value if available
+			if (class == 4 or class == 5) and (gain ~= nil and gain ~= "") then
+				arg_value = gain
+			end
+			
 			local arg_lim1 = ""
 			local arg_lim2 = ""
 			if (arg_lim ~= nil) then

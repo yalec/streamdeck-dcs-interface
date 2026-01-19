@@ -194,10 +194,8 @@ export function useStreamdeckWebsocket(socketSettings: StreamdeckSocketSettings)
         websocket.current.onclose = function (event: CloseEvent) {
             // Websocket is closed
             const reason = event.reason || WEBSOCKETERROR(event);
-            console.log('[STREAMDECK]***** WEBOCKET CLOSED **** reason:', reason);
         };
         return function onUnmount() {
-            console.log("Closing websocket");
             websocket.current?.close();
         }
     }, []);

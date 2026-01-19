@@ -214,22 +214,39 @@ void StreamdeckInterface::DialPressForAction(const std::string &inAction,
                                             const std::string &inDeviceID)
 {
     const auto payload = backwardsCompatibilityHandler(inPayload);
-
-    mConnectionManager->LogMessage("[DialPress] Event received for context: " + inContext);
-
+    
+    // Check if this is a press or release event
+    const bool pressed = EPLJSONUtils::GetBoolByName(payload, "pressed", true);
+    
     mVisibleContextsMutex.lock();
     if (mVisibleContexts.count(inContext) > 0) {
-        mConnectionManager->LogMessage("[DialPress] Context found in visible contexts");
         const auto protocol = mVisibleContexts[inContext].protocol();
         if (simConnectionManager_.is_connected(protocol)) {
-            mConnectionManager->LogMessage("[DialPress] Simulator connected - calling handleEncoderPress");
+            if (!pressed) {
+                // Only handle the release event to send the fixed value
+                mVisibleContexts[inContext].handleEncoderPress(
+                    simConnectionManager_.get_interface(protocol), mConnectionManager, payload);
+            }
+        }
+    }
+    mVisibleContextsMutex.unlock();
+}
+
+void StreamdeckInterface::DialUpForAction(const std::string &inAction,
+                                         const std::string &inContext,
+                                         const json &inPayload,
+                                         const std::string &inDeviceID)
+{
+    const auto payload = backwardsCompatibilityHandler(inPayload);
+    
+    mVisibleContextsMutex.lock();
+    if (mVisibleContexts.count(inContext) > 0) {
+        const auto protocol = mVisibleContexts[inContext].protocol();
+        if (simConnectionManager_.is_connected(protocol)) {
+            // Handle encoder release - send the fixed value
             mVisibleContexts[inContext].handleEncoderPress(
                 simConnectionManager_.get_interface(protocol), mConnectionManager, payload);
-        } else {
-            mConnectionManager->LogMessage("[DialPress] Simulator NOT connected");
         }
-    } else {
-        mConnectionManager->LogMessage("[DialPress] Context NOT found in visible contexts");
     }
     mVisibleContextsMutex.unlock();
 }
@@ -336,12 +353,34 @@ void StreamdeckInterface::SendToPlugin(const std::string &inAction,
 
     if (event == "RequestInstalledModules") {
         const std::string dcs_install_path = EPLJSONUtils::GetStringByName(inPayload, "dcs_install_path");
+        const std::string dcs_savedgames_path = EPLJSONUtils::GetStringByName(inPayload, "dcs_savedgames_path");
         const std::string modules_subdir = "/mods/aircraft/";
-        const json installed_modules_and_result = get_installed_modules(dcs_install_path, modules_subdir);
+        
+        mConnectionManager->LogMessage("[Plugin] RequestInstalledModules received - Install path: " + dcs_install_path + 
+                                       ", Saved games path: " + dcs_savedgames_path);
+        
+        // Get modules from both installation and saved games paths
+        json installed_modules_and_result = get_installed_modules(dcs_install_path, modules_subdir);
+        
+        // If savedgames path is provided, also scan it and merge results
+        if (!dcs_savedgames_path.empty()) {
+            json savedgames_modules = get_installed_modules(dcs_savedgames_path, "/Mods/aircraft/");
+            if (EPLJSONUtils::GetStringByName(savedgames_modules, "result") == "success") {
+                // Merge modules from savedgames into the main list
+                for (const auto& module : savedgames_modules["installed_modules"]) {
+                    installed_modules_and_result["installed_modules"].push_back(module);
+                }
+            }
+        }
+        
         const std::string result = EPLJSONUtils::GetStringByName(installed_modules_and_result, "result");
         if (result != "success") {
             mConnectionManager->LogMessage("[DCS-ExportScript:IdLookupWindow] Get Installed Modules Failure: " +
                                            result);
+        } else {
+            const int module_count = static_cast<int>(installed_modules_and_result["installed_modules"].size());
+            mConnectionManager->LogMessage("[Plugin] Successfully found " + std::to_string(module_count) + 
+                                          " modules, sending to Property Inspector");
         }
         mConnectionManager->SendToPropertyInspector(
             inAction,
@@ -352,9 +391,21 @@ void StreamdeckInterface::SendToPlugin(const std::string &inAction,
 
     if (event == "RequestIdLookup") {
         const std::string dcs_install_path = EPLJSONUtils::GetStringByName(inPayload, "dcs_install_path");
+        const std::string dcs_savedgames_path = EPLJSONUtils::GetStringByName(inPayload, "dcs_savedgames_path");
         const std::string module = EPLJSONUtils::GetStringByName(inPayload, "module");
+        
+        mConnectionManager->LogMessage("[Plugin] RequestIdLookup received for module: " + module);
+        
+        // Try installation path first
         json clickabledata_and_result = get_clickabledata(dcs_install_path, module, "bin/extract_clickabledata.lua");
-        const std::string lua_result = EPLJSONUtils::GetStringByName(clickabledata_and_result, "result");
+        std::string lua_result = EPLJSONUtils::GetStringByName(clickabledata_and_result, "result");
+        
+        // If not found and savedgames path is provided, try savedgames path
+        if (lua_result != "success" && !dcs_savedgames_path.empty()) {
+            clickabledata_and_result = get_clickabledata(dcs_savedgames_path, module, "bin/extract_clickabledata.lua");
+            lua_result = EPLJSONUtils::GetStringByName(clickabledata_and_result, "result");
+        }
+        
         if (lua_result != "success") {
             mConnectionManager->LogMessage("[DCS-ExportScript:IdLookupWindow] " + module +
                                            " Clickabledata Result: " + lua_result);

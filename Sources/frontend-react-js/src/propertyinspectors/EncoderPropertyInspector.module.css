@@ -1,0 +1,135 @@
+.pi {
+  padding: 16px;
+  color: #d0d0d0;
+}
+
+.status {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background: #2d2d2d;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #28a745;
+}
+
+.section {
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #252525;
+  border-radius: 4px;
+  border: 1px solid #3a3a3a;
+}
+
+.section h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e0e0e0;
+  border-bottom: 1px solid #3a3a3a;
+  padding-bottom: 8px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.field label {
+  min-width: 140px;
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.field input[type="text"] {
+  flex: 1;
+  padding: 6px 8px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #e0e0e0;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.field input[type="text"]:focus {
+  outline: none;
+  border-color: #0e639c;
+}
+
+.field button {
+  padding: 6px 12px;
+  background: #0e639c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.field button:hover {
+  background: #1177b3;
+}
+
+.fieldGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.fieldGroup label {
+  min-width: 140px;
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.fieldGroup input {
+  flex: 1;
+  padding: 6px 8px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #e0e0e0;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 140px;
+}
+
+.checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox label {
+  font-size: 12px;
+  color: #d0d0d0;
+}
+
+.section button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: #0e639c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.section button:hover {
+  background: #1177b3;
+}
+
+.section button:last-child {
+  margin-bottom: 0;
+}

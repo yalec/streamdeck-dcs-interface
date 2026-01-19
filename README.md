@@ -36,6 +36,28 @@ There are currently three settings for each Streamdeck button you create:
 
 Can also support multiple physical Streamdecks at once, including **Stream Deck Plus** with rotary encoder support.
 
+## Community Aircraft Modules
+
+The plugin supports both **official DCS modules** and **community aircraft modules** installed in your DCS Saved Games directory.
+
+### Configuration
+
+When using the **ID Lookup** window to find control IDs:
+
+1. **DCS World Install Directory**: Path to your DCS installation (e.g., `C:\Program Files\Eagle Dynamics\DCS World`)
+   - This is where official modules are located
+   
+2. **DCS Saved Games Directory**: Path to your DCS saved games folder (e.g., `%userprofile%\Saved Games\DCS`)
+   - This is where community modules are typically installed
+   - Leave empty if you don't use community modules
+
+The plugin will automatically:
+- Scan both directories for installed aircraft modules
+- Merge the module lists for easy access
+- Search both locations when loading clickabledata for a selected module
+
+This allows seamless integration of community aircraft alongside official modules in your Stream Deck configuration.
+
 ## Stream Deck Plus Encoder Features
 
 The plugin now supports **Stream Deck Plus rotary encoders** with the following capabilities:

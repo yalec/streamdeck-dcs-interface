@@ -1,0 +1,302 @@
+.container {
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #d0d0d0;
+  background-color: #2d2d2d;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.controls {
+  background-color: #1e1e1e;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.pathSection {
+  margin-bottom: 15px;
+}
+
+.pathSection label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.pathInput {
+  width: calc(100% - 100px);
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #e0e0e0;
+  background-color: #2a2a2a;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+}
+
+.pathInput:focus {
+  outline: none;
+  border-color: #0e639c;
+  background-color: #323232;
+}
+
+.updateButton {
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #0e639c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s;
+}
+
+.updateButton:hover {
+  background-color: #1177bb;
+}
+
+.updateButton:active {
+  background-color: #094771;
+}
+
+.moduleSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #3a3a3a;
+}
+
+.moduleSection label {
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 14px;
+  min-width: 70px;
+}
+
+.moduleSelect {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #e0e0e0;
+  background-color: #2a2a2a;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.moduleSelect:focus {
+  outline: none;
+  border-color: #0e639c;
+  background-color: #323232;
+}
+
+.searchSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchSection label {
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 14px;
+  min-width: 70px;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #e0e0e0;
+  background-color: #2a2a2a;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #0e639c;
+  background-color: #323232;
+}
+
+.section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+}
+
+.debugSection {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+}
+
+.debugSection strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.debugMessages {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #2d2d2d;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.debugMessage {
+  padding: 2px 0;
+  color: #d0d0d0;
+  line-height: 1.4;
+}
+
+.debugMessages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.debugMessages::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 4px;
+}
+
+.debugMessages::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 4px;
+}
+
+.debugMessages::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+
+h2, h3 {
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.tableContainer {
+  max-height: 500px;
+  overflow: auto;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #1a1a1a;
+  z-index: 10;
+}
+
+th {
+  padding: 10px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #4a4a4a;
+}
+
+td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #3a3a3a;
+  font-size: 13px;
+  color: #e0e0e0;
+  background-color: #252525;
+}
+
+tbody tr {
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+tbody tr:hover {
+  background-color: #303030;
+}
+
+tbody tr:hover td {
+  background-color: #303030;
+}
+
+tbody tr.selected {
+  background-color: #0e639c;
+}
+
+tbody tr.selected td {
+  background-color: #0e639c;
+  color: #ffffff;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #1e1e1e;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+}
+
+.buttonGroup button {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #0e639c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.buttonGroup button:hover {
+  background-color: #1177bb;
+}
+
+.buttonGroup button:active {
+  background-color: #094771;
+}
+
+.note {
+  font-size: 13px;
+  color: #9d9d9d;
+  font-style: italic;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #1e1e1e;
+  border-left: 3px solid #0e639c;
+  border-radius: 4px;
+}

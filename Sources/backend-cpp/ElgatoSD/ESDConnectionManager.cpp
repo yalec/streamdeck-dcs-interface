@@ -80,6 +80,14 @@ void ESDConnectionManager::OnMessage(websocketpp::connection_hdl, WebsocketClien
                 mPlugin->WillAppearForAction(action, context, payload, deviceID);
             } else if (event == kESDSDKEventWillDisappear) {
                 mPlugin->WillDisappearForAction(action, context, payload, deviceID);
+            } else if (event == kESDSDKEventDialRotate) {
+                mPlugin->DialRotateForAction(action, context, payload, deviceID);
+            } else if (event == kESDSDKEventDialPress) {
+                mPlugin->DialPressForAction(action, context, payload, deviceID);
+            } else if (event == kESDSDKEventDialUp) {
+                mPlugin->DialUpForAction(action, context, payload, deviceID);
+            } else if (event == kESDSDKEventTouchTap) {
+                mPlugin->TouchTapForAction(action, context, payload, deviceID);
             } else if (event == kESDSDKEventDeviceDidConnect) {
                 json deviceInfo;
                 EPLJSONUtils::GetObjectByName(receivedJson, kESDSDKCommonDeviceInfo, deviceInfo);
@@ -200,6 +208,18 @@ void ESDConnectionManager::ShowAlertForContext(const std::string &inContext)
 
     jsonObject[kESDSDKCommonEvent] = kESDSDKEventShowAlert;
     jsonObject[kESDSDKCommonContext] = inContext;
+
+    websocketpp::lib::error_code ec;
+    mWebsocket.send(mConnectionHandle, jsonObject.dump(), websocketpp::frame::opcode::text, ec);
+}
+
+void ESDConnectionManager::SetFeedback(const json &inPayload, const std::string &inContext)
+{
+    json jsonObject;
+
+    jsonObject[kESDSDKCommonEvent] = "setFeedback";
+    jsonObject[kESDSDKCommonContext] = inContext;
+    jsonObject[kESDSDKCommonPayload] = inPayload;
 
     websocketpp::lib::error_code ec;
     mWebsocket.send(mConnectionHandle, jsonObject.dump(), websocketpp::frame::opcode::text, ec);

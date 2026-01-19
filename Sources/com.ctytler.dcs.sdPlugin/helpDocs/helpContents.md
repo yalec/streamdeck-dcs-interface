@@ -146,7 +146,16 @@ For example, with the `AV8BNA.lua` export script, setting a DCS ID equal to `250
 
 The ID lookup uses a lua script to extract clickabledata item attributes from the modules in the DCS World installation. Therefore, the directory where DCS World is installed must be entered correctly in the textbox - use the "Update" button to save changes.
 
-If the directory is not specified correctly the "Select Module" drop-down will be blank. When the install directory is found, modules installed within `<DCS World install dir>\mods\aircraft\` directory will be included in the Select Module list.
+**DCS World Install Directory** -- Path to your DCS installation (e.g., `C:\Program Files\Eagle Dynamics\DCS World` or `C:\Program Files\Eagle Dynamics\DCS World OpenBeta`). This directory contains official DCS modules in the `\mods\aircraft\` subdirectory.
+
+**DCS Saved Games Directory** (Optional) -- Path to your DCS saved games folder (e.g., `%userprofile%\Saved Games\DCS` or `%userprofile%\Saved Games\DCS.openbeta`). This directory contains community aircraft modules typically installed in the `\Mods\aircraft\` subdirectory. Leave this field empty if you don't use community modules.
+
+If the directories are not specified correctly, the "Select Module" drop-down will be blank or incomplete. When the paths are configured correctly:
+- Modules from the installation directory (`<DCS World install dir>\mods\aircraft\`) will be included
+- Community modules from the saved games directory (`<Saved Games dir>\Mods\aircraft\`) will also be included (if path is specified)
+- The module list automatically merges both sources for easy access
+
+Both paths are saved in the plugin's global settings and will persist across sessions.
 
 ## Aircraft Module Clickabledata
 

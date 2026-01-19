@@ -39,6 +39,7 @@ class ESDConnectionManager
     // API to communicate with the Stream Deck application
     virtual void SetTitle(const std::string &inTitle, const std::string &inContext, ESDSDKTarget inTarget);
     virtual void SetImage(const std::string &inBase64ImageString, const std::string &inContext, ESDSDKTarget inTarget);
+    virtual void SetFeedback(const json &inPayload, const std::string &inContext);
     void ShowAlertForContext(const std::string &inContext);
     void ShowOKForContext(const std::string &inContext);
     void SetSettings(const json &inSettings, const std::string &inContext);

@@ -1,0 +1,112 @@
+.row {
+  border: 1px solid #444;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  background: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.main {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.field {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.field label {
+  width: 60px;
+  color: #999;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.field input[type="text"] {
+  flex: 1;
+  padding: 3px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #ccc;
+  font-size: 11px;
+  border-radius: 2px;
+}
+
+.field input[type="color"] {
+  width: 50px;
+  padding: 2px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.hint {
+  color: #777;
+  font-size: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.row button {
+  padding: 3px 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 10px;
+  min-width: 30px;
+}
+
+.btnAdvanced {
+  background: #555;
+}
+
+.btnAdvanced:hover {
+  background: #666;
+}
+
+.btnSave {
+  background: #0e639c;
+}
+
+.btnSave:hover {
+  background: #1177b3;
+}
+
+.saved {
+  background: #28a745 !important;
+  animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.btnDelete {
+  background: #c41e3a;
+}
+
+.btnDelete:hover {
+  background: #d43249;
+}
+
+.advanced {
+  border-top: 1px solid #555;
+  padding-top: 6px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

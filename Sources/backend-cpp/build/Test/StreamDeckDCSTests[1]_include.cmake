@@ -1,0 +1,5 @@
+if(EXISTS "D:/dev/streamdeck-dcs-interface-fork/Sources/backend-cpp/build/Test/StreamDeckDCSTests[1]_tests.cmake")
+  include("D:/dev/streamdeck-dcs-interface-fork/Sources/backend-cpp/build/Test/StreamDeckDCSTests[1]_tests.cmake")
+else()
+  add_test(StreamDeckDCSTests_NOT_BUILT StreamDeckDCSTests_NOT_BUILT)
+endif()

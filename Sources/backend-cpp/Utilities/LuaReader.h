@@ -18,11 +18,11 @@ json get_installed_modules(const std::string &dcs_install_path, const std::strin
 /**
  * @brief Extract clickabledata elements from a DCS World module.
  *
- * @param dcs_install_path Path to DCS World installation (e.g. "C:\Program Files\Eagle Dynamics\DCS World")
- * @param module_name      Name of the module matching the folder naming convention (e.g. "A-10C")
- * @param lua_script       Lua script to run which should return comma-separated strings of clickabledata attributes.
- * @return json            Json array of comma-separated strings, each array element is one clickabledata element.
+ * @param dcs_path    Path to DCS directory (installation or saved games, e.g. "C:\Program Files\Eagle Dynamics\DCS World")
+ * @param module_name Name of the module matching the folder naming convention (e.g. "A-10C")
+ * @param lua_script  Lua script to run which should return comma-separated strings of clickabledata attributes.
+ * @return json       Json array of comma-separated strings, each array element is one clickabledata element.
  */
-json get_clickabledata(const std::string &dcs_install_path,
+json get_clickabledata(const std::string &dcs_path,
                        const std::string &module_name,
                        const std::string &lua_script);

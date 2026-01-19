@@ -53,6 +53,35 @@ class ESDBasePlugin
                               const json &inPayload,
                               const std::string &inDeviceID) = 0;
 
+    // Encoder events (Stream Deck+ support) - optional implementation
+    virtual void DialRotateForAction(const std::string &inAction,
+                                     const std::string &inContext,
+                                     const json &inPayload,
+                                     const std::string &inDeviceID)
+    {
+    }
+
+    virtual void DialPressForAction(const std::string &inAction,
+                                    const std::string &inContext,
+                                    const json &inPayload,
+                                    const std::string &inDeviceID)
+    {
+    }
+
+    virtual void DialUpForAction(const std::string &inAction,
+                                 const std::string &inContext,
+                                 const json &inPayload,
+                                 const std::string &inDeviceID)
+    {
+    }
+
+    virtual void TouchTapForAction(const std::string &inAction,
+                                   const std::string &inContext,
+                                   const json &inPayload,
+                                   const std::string &inDeviceID)
+    {
+    }
+
   protected:
     ESDConnectionManager *mConnectionManager = nullptr;
 };

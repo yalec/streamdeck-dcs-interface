@@ -34,7 +34,6 @@ function StateMonitor({ settings, setSettings }: Props): JSX.Element {
     const [maxValue, setMaxValue] = useState("");
 
     function handleDroppedItem(item: DcsBiosDraggableItem) {
-        console.log(item);
         if (item.type === DcsBiosDraggableTypes.OUTPUT_INTEGER) {
             const output = item.output as ControlOutputInteger;
             setSettings((prevSettings) => ({

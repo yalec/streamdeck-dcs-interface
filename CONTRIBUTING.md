@@ -4,7 +4,21 @@ Thank you for your interest in contributing to this project!
 
 ## Fork Information
 
-This fork adds Stream Deck Plus rotary encoder support to the original project.
+This fork adds the following enhancements to the original project:
+
+### Key Features Added
+
+1. **Stream Deck Plus Rotary Encoder Support**
+   - Full encoder rotation with CW/CCW increment values
+   - Encoder press actions for fixed values
+   - LCD display with real-time DCS value updates
+   - See [ENCODER_PRESS_IMPLEMENTATION.md](ENCODER_PRESS_IMPLEMENTATION.md) for details
+
+2. **MOVABLE_LEV Class Type Support**
+   - Added support for `MOVABLE_LEV` (class type 5) in clickabledata parsing
+   - Fixes ID Lookup for aircraft using movable lever controls (F4U-1D Corsair, etc.)
+   - Proper extraction of `gain` values for lever increment controls
+   - See [MOVABLE_LEV_SUPPORT.md](MOVABLE_LEV_SUPPORT.md) for technical details
 
 ### Original Project
 
@@ -23,6 +37,24 @@ This fork adds Stream Deck Plus rotary encoder support to the original project.
 
 ## Development Guidelines
 
+### Frontend Architecture (React + TypeScript)
+
+The plugin uses **React 17 + TypeScript** for all UI components. See [Sources/frontend-react-js/ARCHITECTURE.md](Sources/frontend-react-js/ARCHITECTURE.md) for detailed documentation.
+
+**Quick Start:**
+```bash
+cd Sources/frontend-react-js
+npm install
+npm run build:all  # Build all Property Inspectors
+```
+
+**Key Principles:**
+- **TypeScript strict mode**: No `any` types
+- **Functional components**: Use hooks (useState, useEffect, useCallback)
+- **postMessage API**: For inter-window communication
+- **CSS Modules**: For scoped component styling
+- **Type safety**: All settings interfaces properly typed
+
 ### Building from Source
 
 Before building, ensure you have:
@@ -30,10 +62,16 @@ Before building, ensure you have:
 - MSBuild added to your PATH
 - npm for Windows
 
-Run the build script:
+**Full build (C++ backend + React frontend):**
 ```batch
 cd Tools
-.\build_plugin.bat
+.\build_plugin_cmake.bat
+```
+
+**Frontend only:**
+```batch
+cd Sources/frontend-react-js
+npm run build:all
 ```
 
 ### Code Style

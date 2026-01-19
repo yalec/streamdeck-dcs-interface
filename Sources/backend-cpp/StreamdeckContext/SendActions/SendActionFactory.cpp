@@ -2,6 +2,7 @@
 
 #include "SendActionFactory.h"
 
+#include "StreamdeckContext/SendActions/EncoderAction.h"
 #include "StreamdeckContext/SendActions/IncrementAction.h"
 #include "StreamdeckContext/SendActions/MomentaryAction.h"
 #include "StreamdeckContext/SendActions/SwitchAction.h"
@@ -15,8 +16,8 @@ SendActionFactory::SendActionFactory()
     button_action_from_uuid_["com.ctytler.dcs.static.text.one-state"] = ButtonAction::MOMENTARY;
     button_action_from_uuid_["com.ctytler.dcs.increment.dial.two-state"] = ButtonAction::INCREMENT;
     button_action_from_uuid_["com.ctytler.dcs.increment.textdial.two-state"] = ButtonAction::INCREMENT;
-    button_action_from_uuid_["com.ctytler.dcs.encoder.rotary"] = ButtonAction::INCREMENT;
-    button_action_from_uuid_["com.ctytler.dcs.encoder.rotary.text"] = ButtonAction::INCREMENT;
+    button_action_from_uuid_["com.ctytler.dcs.encoder.rotary"] = ButtonAction::ENCODER;
+    button_action_from_uuid_["com.ctytler.dcs.encoder.rotary.text"] = ButtonAction::ENCODER;
     button_action_from_uuid_["com.ctytler.dcs.up-down.switch.two-state"] = ButtonAction::SWITCH;
 }
 
@@ -29,6 +30,8 @@ std::unique_ptr<SendActionInterface> SendActionFactory::create(const std::string
         return std::make_unique<IncrementAction>();
     case ButtonAction::SWITCH:
         return std::make_unique<SwitchAction>();
+    case ButtonAction::ENCODER:
+        return std::make_unique<EncoderAction>();
     default:
         return nullptr;
     }

@@ -20,7 +20,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Button which communicates with DCS-BIOS",
       "UUID": "com.ctytler.dcs.dcs-bios",
-      "PropertyInspectorPath": "propertyinspector/dcs_bios_prop_inspector.html",
+      "PropertyInspectorPath": "propertyinspector/dcsbios-react/index.html",
       "ShowTitle": false,
       "Encoder": {
         "layout": "$A1",
@@ -51,7 +51,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Button press depends on displayed state",
       "UUID": "com.ctytler.dcs.up-down.switch.two-state",
-      "PropertyInspectorPath": "propertyinspector/index.html",
+      "PropertyInspectorPath": "propertyinspector/button-react/index.html",
       "ShowTitle": false,
       "Encoder": {
         "layout": "$A1",
@@ -82,7 +82,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Momentary button press independent of display",
       "UUID": "com.ctytler.dcs.lamp.button.two-state",
-      "PropertyInspectorPath": "propertyinspector/index.html"
+      "PropertyInspectorPath": "propertyinspector/button-react/index.html"
     },
     {
       "Icon": "images/Button_UFC_Blank",
@@ -99,7 +99,7 @@
       "SupportedInMultiActions": true,
       "Tooltip": "Single display state can be used for button and/or text display",
       "UUID": "com.ctytler.dcs.static.button.one-state",
-      "PropertyInspectorPath": "propertyinspector/index.html"
+      "PropertyInspectorPath": "propertyinspector/button-react/index.html"
     },
     {
       "Icon": "images/display_icon",
@@ -116,7 +116,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Single display state can be used for button and/or text display",
       "UUID": "com.ctytler.dcs.static.text.one-state",
-      "PropertyInspectorPath": "propertyinspector/index.html"
+      "PropertyInspectorPath": "propertyinspector/button-react/index.html"
     },
     {
       "Icon": "images/Rotary_Dial_0",
@@ -138,7 +138,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Incremental input button can be used for dials/switches/multi-position",
       "UUID": "com.ctytler.dcs.increment.dial.two-state",
-      "PropertyInspectorPath": "propertyinspector/index.html",
+      "PropertyInspectorPath": "propertyinspector/button-react/index.html",
       "Encoder": {
         "layout": "$A1",
         "TriggerDescription": {
@@ -168,7 +168,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Incremental input button with space for text above",
       "UUID": "com.ctytler.dcs.increment.textdial.two-state",
-      "PropertyInspectorPath": "propertyinspector/index.html",
+      "PropertyInspectorPath": "propertyinspector/button-react/index.html",
       "Encoder": {
         "layout": "$A1",
         "TriggerDescription": {
@@ -190,7 +190,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Rotary encoder for Stream Deck Plus - Incremental input control",
       "UUID": "com.ctytler.dcs.encoder.rotary",
-      "PropertyInspectorPath": "propertyinspector/encoder_prop_inspector.html",
+      "PropertyInspectorPath": "propertyinspector/encoder-react/index.html",
       "Encoder": {
         "layout": "$B2",
         "background": "images/Rotary_Dial_0",
@@ -213,7 +213,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Rotary encoder with text display for Stream Deck Plus",
       "UUID": "com.ctytler.dcs.encoder.rotary.text",
-      "PropertyInspectorPath": "propertyinspector/encoder_prop_inspector.html",
+      "PropertyInspectorPath": "propertyinspector/encoder-react/index.html",
       "Encoder": {
         "layout": "$B2",
         "background": "images/Rotary_Switch_Half_0",

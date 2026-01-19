@@ -1,0 +1,53 @@
+.list {
+  margin-top: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.header h4 {
+  margin: 0;
+  color: #d0d0d0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btnAdd {
+  padding: 4px 12px;
+  background: #0e639c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.btnAdd:hover {
+  background: #1177b3;
+}
+
+.container {
+  margin: 8px 0;
+}
+
+.empty {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  border: 1px dashed #555;
+  border-radius: 3px;
+  background: #1a1a1a;
+}
+
+.info {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #999;
+  line-height: 1.4;
+}

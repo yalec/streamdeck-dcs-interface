@@ -63,7 +63,18 @@
 					<input id="dcs_install_path" class="sdpi-item-value" type="text"
 						value="C:\Program Files\Eagle Dynamics\DCS World OpenBeta"
 						placeholder="Default: C:\Program Files\Eagle Dynamics\DCS World" />
+				</div>
 
+				<div class="sdpi-item">
+					<div>
+						<p><b>DCS Saved Games Directory: </b></p>
+					</div>
+					<input id="dcs_savedgames_path" class="sdpi-item-value" type="text"
+						value=""
+						placeholder="Default: %userprofile%\Saved Games\DCS (for community mods)" />
+				</div>
+
+				<div class="sdpi-item">
 					<button id="dcs_install_path_save_button" type="button" value="Update"
 						onclick="RequestInstalledModules()">Update</button>
 				</div>

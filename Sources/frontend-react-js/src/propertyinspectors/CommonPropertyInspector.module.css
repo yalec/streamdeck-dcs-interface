@@ -1,0 +1,178 @@
+/* Styles communs pour tous les Property Inspectors */
+
+.container {
+  padding: 12px;
+  color: #d0d0d0;
+  background-color: #1e1e1e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+}
+
+.status {
+  padding: 8px;
+  margin-bottom: 12px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.section {
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.section h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #a0a0a0;
+}
+
+.field input[type="text"],
+.field input[type="number"],
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 6px 8px;
+  background-color: #383838;
+  border: 1px solid #4a4a4a;
+  border-radius: 3px;
+  color: #d0d0d0;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #0078d4;
+}
+
+.field input:disabled {
+  background-color: #222222;
+  color: #333333;
+}
+
+.field button {
+  margin-top: 4px;
+  padding: 4px 12px;
+  background-color: #0078d4;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.field button:hover {
+  background-color: #106ebe;
+}
+
+.fieldGroup {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.fieldGroup label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #a0a0a0;
+}
+
+.fieldGroup input {
+  flex: 1;
+  padding: 6px 8px;
+  background-color: #383838;
+  border: 1px solid #4a4a4a;
+  border-radius: 3px;
+  color: #d0d0d0;
+  font-size: 12px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.checkbox label {
+  margin: 0;
+  font-weight: normal;
+  color: #d0d0d0;
+  cursor: pointer;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.buttonGroup button {
+  flex: 1;
+  min-width: 80px;
+  padding: 8px 12px;
+  background-color: #0078d4;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.buttonGroup button:hover {
+  background-color: #106ebe;
+}
+
+/* Pour les details/summary */
+details {
+  margin-bottom: 12px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 4px;
+  color: #ffffff;
+  user-select: none;
+}
+
+details summary:hover {
+  color: #0078d4;
+}
+
+details[open] {
+  padding-bottom: 12px;
+}
+
+details[open] summary {
+  margin-bottom: 12px;
+  border-bottom: 1px solid #4a4a4a;
+  padding-bottom: 8px;
+}

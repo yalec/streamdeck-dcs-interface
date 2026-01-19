@@ -47,6 +47,10 @@
 #define kESDSDKEventDidReceiveGlobalSettings "didReceiveGlobalSettings"
 #define kESDSDKEventPropertyInspectorDidAppear "propertyInspectorDidAppear"
 #define kESDSDKEventPropertyInspectorDidDisappear "propertyInspectorDidDisappear"
+#define kESDSDKEventDialRotate "dialRotate"
+#define kESDSDKEventDialPress "dialPress"
+#define kESDSDKEventDialUp "dialUp"
+#define kESDSDKEventTouchTap "touchTap"
 
 //
 // Functions

@@ -58,14 +58,26 @@ npm run build:all  # Build all Property Inspectors
 ### Building from Source
 
 Before building, ensure you have:
-- Microsoft Visual Studio 2022 (or Build Tools with Platform Toolset v145)
-- MSBuild added to your PATH
+- Microsoft Visual Studio 2022 (or Build Tools with Platform Toolset v143)
 - npm for Windows
+- (Optional) CMake 3.15+ for CMake builds
 
-**Full build (C++ backend + React frontend):**
+**Recommended: CMake build (C++ backend + React frontend):**
 ```batch
 cd Tools
 .\build_plugin_cmake.bat
+```
+
+**For Debug builds:**
+```batch
+cd Sources\backend-cpp\build
+cmake --build . --config Debug
+```
+
+**Legacy MSBuild method:**
+```batch
+cd Tools
+.\build_plugin.bat
 ```
 
 **Frontend only:**
@@ -73,6 +85,8 @@ cd Tools
 cd Sources/frontend-react-js
 npm run build:all
 ```
+
+See [Sources/backend-cpp/BUILD_CMAKE.md](Sources/backend-cpp/BUILD_CMAKE.md) for detailed build documentation.
 
 ### Code Style
 

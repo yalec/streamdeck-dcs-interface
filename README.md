@@ -149,7 +149,55 @@ Sources
 
 # Build from source instructions
 
-A build script is included which will build both the C++ executable which handles the communcation with DCS as well as the package for the Stream Deck plugin: `Tools/build_plugin.bat`
+## CMake Build (Recommended)
+
+The project now supports **CMake** for easier, version-independent builds with automatic dependency management.
+
+### Quick Start
+
+**Windows (Release):**
+```batch
+Tools\build_plugin_cmake.bat
+```
+
+This will:
+- Build both C++ backend and React frontend
+- Run all unit tests
+- Generate the plugin file at `Release/com.ctytler.dcs.streamDeckPlugin`
+
+**Windows (Debug Mode):**
+```batch
+Tools\build_plugin_cmake.bat -debug
+```
+
+Debug mode will:
+- Build with source maps for JavaScript/React debugging
+- Link plugin to Stream Deck in development mode
+- Enable Stream Deck developer mode
+- Restart the plugin automatically
+- Access Property Inspector debugging at `http://localhost:23654/`
+- Attach Visual Studio debugger to `com.ctytler.dcs.exe` for C++ debugging
+
+### Manual CMake Build
+
+```batch
+cd Sources\backend-cpp
+mkdir build
+cd build
+cmake .. -G "Visual Studio 17 2022" -A x64
+cmake --build . --config Release
+```
+
+**For Debug builds:**
+```batch
+cmake --build . --config Debug
+```
+
+See [Sources/backend-cpp/BUILD_CMAKE.md](Sources/backend-cpp/BUILD_CMAKE.md) for detailed CMake documentation.
+
+## Legacy MSBuild Method
+
+The original MSBuild script is still available: `Tools/build_plugin.bat`
 
 Before running the .bat file you will need to:
  - Install MSBuild to compile C++ (comes with Microsoft Visual Studio or Build Tools)
@@ -159,8 +207,7 @@ Before running the .bat file you will need to:
    - Under "User variables for ..." select the "Path" row and choose "Edit"
    - Add a New path of your MSBuild.exe install location, such as "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin"
 
-Running the batch script will build the Streamdeck plugin and run all unit tests, generating the plugin file at `Release/com.ctytler.dcs.streamDeckPlugin`.
-
 **Build Requirements:**
-- Visual Studio 2022 (v17.11+) or Visual Studio 2025 with Platform Toolset v145
-- The encoder support features require Visual Studio 2025 or compatible toolset
+- Visual Studio 2022 (Platform Toolset v143) or newer
+- npm for Windows
+- C++17 compiler support

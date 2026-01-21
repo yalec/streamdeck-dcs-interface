@@ -1,39 +1,39 @@
-# Migration vers React - Guide Complet
+# React Migration - Complete Guide
 
-## Vue d'Ensemble
+## Overview
 
-Ce document décrit la migration des Property Inspectors HTML/JavaScript vanilla vers React/TypeScript pour le plugin Stream Deck DCS Interface.
+This document describes the migration of HTML/JavaScript Property Inspectors to React/TypeScript for the Stream Deck DCS Interface plugin.
 
-## État Actuel
+## Current Status
 
-### ✅ Complété
+### ✅ Completed
 
-1. **Infrastructure de base**
-   - Structure de projet `propertyinspector-react/`
-   - Configuration TypeScript
-   - Build system multi-PI
-   - Hook `useStreamDeckPI` pour communication WebSocket
-   - Types TypeScript complets
+1. **Base Infrastructure**
+   - Project structure `propertyinspector-react/`
+   - TypeScript configuration
+   - Multi-PI build system
+   - `useStreamDeckPI` hook for WebSocket communication
+   - Complete TypeScript types
 
 2. **EncoderPropertyInspector**
-   - Migration complète de `encoder_prop_inspector.html`
-   - Composants réutilisables :
-     - `ValueMappingRow` - Ligne de mapping avec couleurs avancées
-     - `ValueMappingList` - Liste complète avec add/delete
-   - Serialization/Deserialization avec backward compatibility
-   - Interface utilisateur moderne et typée
+   - Complete migration from `encoder_prop_inspector.html`
+   - Reusable components:
+     - `ValueMappingRow` - Mapping row with advanced colors
+     - `ValueMappingList` - Complete list with add/delete
+   - Serialization/Deserialization with backward compatibility
+   - Modern and typed user interface
 
-### 🔄 En Cours
+### 🔄 In Progress
 
-- Tests du Property Inspector encodeur avec hardware
+- Testing Encoder Property Inspector with hardware
 
-### 📋 À Faire
+### 📋 To Do
 
-1. Migration `ButtonPropertyInspector` (`index.html`)
-2. Migration `DcsBiosPropertyInspector` (`dcs_bios_prop_inspector.html`)
-3. Tests unitaires et d'intégration
-4. Mise à jour du `manifest.json`
-5. Dépréciation des anciens PIs HTML
+1. Migrate `ButtonPropertyInspector` (`index.html`)
+2. Migrate `DcsBiosPropertyInspector` (`dcs_bios_prop_inspector.html`)
+3. Unit and integration tests
+4. Update `manifest.json`
+5. Deprecate old HTML PIs
 
 ## Installation
 
@@ -42,54 +42,54 @@ cd Sources/propertyinspector-react
 npm install
 ```
 
-## Développement
+## Development
 
-### Lancer en mode développement
+### Launch in development mode
 
 ```bash
 npm start
-# Ouvre http://localhost:3000
-# Hot reload activé
+# Opens http://localhost:3000
+# Hot reload enabled
 ```
 
-### Build pour production
+### Build for production
 
 ```bash
-# Build encodeur uniquement
+# Build encoder only
 npm run build:encoder
 
-# Build tous les PIs
+# Build all PIs
 npm run build:all
 ```
 
-Les builds sont générés dans :
+Builds are generated in:
 - `../com.ctytler.dcs.sdPlugin/propertyinspector/encoder-react/`
 - `../com.ctytler.dcs.sdPlugin/propertyinspector/button-react/`
 - `../com.ctytler.dcs.sdPlugin/propertyinspector/dcsbios-react/`
 
 ## Architecture
 
-### Communication WebSocket
+### WebSocket Communication
 
-Le hook `useStreamDeckPI` gère automatiquement :
-- Connexion WebSocket avec Stream Deck
-- Réception des settings
-- Envoi des updates
-- Messages vers le plugin C++
+The `useStreamDeckPI` hook automatically handles:
+- WebSocket connection with Stream Deck
+- Receiving settings
+- Sending updates
+- Messages to C++ plugin
 
 ```typescript
 const { settings, setSettings, connected } = useStreamDeckPI<EncoderSettings>();
 
-// Mise à jour d'un champ
+// Update a field
 setSettings({ increment_cw: "0.1" });
 
-// Envoi message au plugin
+// Send message to plugin
 sendToPlugin({ action: "refresh" });
 ```
 
-### Types TypeScript
+### TypeScript Types
 
-Tous les settings sont typés :
+All settings are typed:
 
 ```typescript
 interface EncoderSettings extends CommonSettings {
@@ -102,30 +102,30 @@ interface EncoderSettings extends CommonSettings {
 }
 ```
 
-### Composants Réutilisables
+### Reusable Components
 
-Les composants UI sont modulaires :
+UI components are modular:
 
 ```tsx
-// Composant avec props typées
+// Component with typed props
 <ValueMappingRow
   mapping={mapping}
   onChange={handleChange}
   onDelete={handleDelete}
 />
 
-// Liste complète
+// Complete list
 <ValueMappingList
   mappings={mappings}
   onChange={setMappings}
 />
 ```
 
-## Intégration Stream Deck
+## Stream Deck Integration
 
-### Mise à jour du manifest.json
+### Updating manifest.json
 
-Pour utiliser les nouveaux PIs React :
+To use the new React PIs:
 
 ```json
 {
@@ -140,147 +140,147 @@ Pour utiliser les nouveaux PIs React :
 }
 ```
 
-### Compatibilité Backend
+### Backend Compatibility
 
-Aucune modification du backend C++ requise ! Les formats de sérialisation sont identiques :
+No C++ backend modification required! Serialization formats are identical:
 
-- Format étendu : `value:text:image:textColor:bgColor`
-- Backward compatible avec v2, v3, v4
+- Extended format: `value:text:image:textColor:bgColor`
+- Backward compatible with v2, v3, v4
 
 ## Testing
 
-### Tests Manuels
+### Manual Tests
 
-1. Build le PI : `npm run build:encoder`
-2. Copier dans `propertyinspector/encoder-react/`
-3. Reload le plugin dans Stream Deck
-4. Tester chaque fonctionnalité
+1. Build the PI: `npm run build:encoder`
+2. Copy to `propertyinspector/encoder-react/`
+3. Reload the plugin in Stream Deck
+4. Test each functionality
 
-### Tests Automatisés (à implémenter)
+### Automated Tests (to implement)
 
 ```bash
 npm test
 ```
 
-Tests à créer :
+Tests to create:
 - Serialization/Deserialization
-- Communication WebSocket
-- Composants UI
-- Intégration complète
+- WebSocket Communication
+- UI Components
+- Complete Integration
 
-## Avantages de React
+## React Benefits
 
 ### 1. Type Safety
 
 ```typescript
-// TypeScript attrape les erreurs
-setSettings({ increment_cw: 123 });  // ❌ Erreur: string attendu
+// TypeScript catches errors
+setSettings({ increment_cw: 123 });  // ❌ Error: string expected
 setSettings({ increment_cw: "0.1" }); // ✅ OK
 ```
 
-### 2. Composants Réutilisables
+### 2. Reusable Components
 
-Moins de duplication de code entre les PIs.
+Less code duplication between PIs.
 
 ### 3. State Management
 
 ```typescript
 const [mappings, setMappings] = useState<ValueMappingData[]>([]);
 
-// React gère automatiquement le re-render
+// React automatically handles re-render
 setMappings([...mappings, newMapping]);
 ```
 
 ### 4. Developer Experience
 
-- Hot reload instantané
-- Meilleur debugging
-- Auto-complétion IDE complète
-- Détection d'erreurs avant runtime
+- Instant hot reload
+- Better debugging
+- Complete IDE auto-completion
+- Error detection before runtime
 
 ### 5. Performance
 
-React Virtual DOM optimise les updates du DOM.
+React Virtual DOM optimizes DOM updates.
 
-### 6. Maintenabilité
+### 6. Maintainability
 
-Code plus propre et organisé vs manipulation DOM manuelle.
+Cleaner and organized code vs manual DOM manipulation.
 
-## Migration des Autres PIs
+## Migrating Other PIs
 
 ### ButtonPropertyInspector (index.html)
 
-**Sections à migrer** :
+**Sections to migrate**:
 1. DCS Command settings (momentary, switch, increment)
 2. Image State Change monitor
 3. Title Text Change monitor
 4. External windows (ID Lookup, Help, Comms)
 
-**Estimation** : 4-6 heures
+**Estimate**: 4-6 hours
 
 ### DcsBiosPropertyInspector
 
-**Plus simple** : Un seul bouton "Configure" qui ouvre window.
+**Simpler**: Single "Configure" button that opens window.
 
-**Estimation** : 1-2 heures
+**Estimate**: 1-2 hours
 
-## Prochaines Étapes
+## Next Steps
 
-### Phase 1 : Validation (maintenant)
+### Phase 1: Validation (now)
 
 1. ✅ Build `npm run build:encoder`
-2. ⏳ Tester avec Stream Deck hardware
-3. ⏳ Valider toutes les fonctionnalités
-4. ⏳ Corriger bugs éventuels
+2. ⏳ Test with Stream Deck hardware
+3. ⏳ Validate all functionalities
+4. ⏳ Fix any bugs
 
-### Phase 2 : Migration Complète
+### Phase 2: Complete Migration
 
-1. Migrer ButtonPropertyInspector
-2. Migrer DcsBiosPropertyInspector
-3. Mettre à jour manifest.json
-4. Tests complets
+1. Migrate ButtonPropertyInspector
+2. Migrate DcsBiosPropertyInspector
+3. Update manifest.json
+4. Complete tests
 
-### Phase 3 : Cleanup
+### Phase 3: Cleanup
 
-1. Déprécier anciens HTML PIs
-2. Supprimer code legacy
-3. Documentation utilisateur
+1. Deprecate old HTML PIs
+2. Remove legacy code
+3. User documentation
 
 ## Troubleshooting
 
-### Build échoue
+### Build fails
 
 ```bash
-# Nettoyer et réinstaller
+# Clean and reinstall
 rm -rf node_modules package-lock.json
 npm install
 npm run build:encoder
 ```
 
-### WebSocket ne se connecte pas
+### WebSocket doesn't connect
 
-Vérifier que :
-1. Stream Deck est lancé
-2. Le plugin est installé
-3. La console browser (F12) pour voir les erreurs
+Check that:
+1. Stream Deck is running
+2. The plugin is installed
+3. Browser console (F12) for errors
 
-### Settings ne se sauvegardent pas
+### Settings don't save
 
-Vérifier :
-1. `setSettings()` est appelé correctement
-2. Les types correspondent à `StreamDeckTypes.ts`
-3. Le format sérialisé est correct
+Check:
+1. `setSettings()` is called correctly
+2. Types match `StreamDeckTypes.ts`
+3. Serialized format is correct
 
-## Ressources
+## Resources
 
 - [Stream Deck SDK Documentation](https://developer.elgato.com/documentation/stream-deck/)
 - [React Documentation](https://reactjs.org/docs/)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- `/ENCODER_DISPLAY_IMPLEMENTATION.md` - Documentation backend
+- `/ENCODER_DISPLAY_IMPLEMENTATION.md` - Backend documentation
 
 ## Contact
 
-Pour questions sur la migration React, voir :
-- `propertyinspector-react/README.md` - Documentation structure
-- `ENCODER_DISPLAY_IMPLEMENTATION.md` - Documentation backend
-- Code source dans `propertyinspector-react/src/`
+For questions about React migration, see:
+- `propertyinspector-react/README.md` - Structure documentation
+- `ENCODER_DISPLAY_IMPLEMENTATION.md` - Backend documentation
+- Source code in `propertyinspector-react/src/`

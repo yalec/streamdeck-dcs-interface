@@ -1,61 +1,61 @@
-# ID Lookup Window - Réécriture Propre Basée sur le Code Original
+# ID Lookup Window - Clean Rewrite Based on Original Code
 
-## ❌ Problème Identifié dans les Logs
+## ❌ Problem Identified in Logs
 
 ```
 Received messageType 'setGlobalSettings' from the wrong context 'fa110dc73ffcaf49ee238648ce5fcd3d
 Received messageType 'sendToPlugin' from the wrong context 'fa110dc73ffcaf49ee238648ce5fcd3d
 ```
 
-**Cause:** Notre version React envoyait des messages WebSocket avec des contextes incorrects.
+**Cause:** Our React version was sending WebSocket messages with incorrect contexts.
 
-## ✅ Solution: Réécriture Propre depuis le Code JavaScript Original
+## ✅ Solution: Clean Rewrite from Original JavaScript Code
 
-Au lieu d'essayer de faire fonctionner du code trop complexe, nous avons **réécrit** IdLookupWindow en suivant **exactement** le code JavaScript original.
+Instead of trying to make overly complex code work, we **rewrote** IdLookupWindow by following **exactly** the original JavaScript code.
 
-### Fichier Créé: `IdLookupWindowSimple.tsx`
+### Created File: `IdLookupWindowSimple.tsx`
 
-Migration fonction par fonction depuis `id_lookup_window_functions.js`:
+Function-by-function migration from `id_lookup_window_functions.js`:
 
-| Fonction Originale JS | Fonction React | Description |
+| Original JS Function | React Function | Description |
 |----------------------|----------------|-------------|
-| `sendmessage()` | `sendMessage()` | Envoie message à window.opener |
-| `loaded()` + `restoreGlobalSettings()` | `useEffect()` mount | Restaure settings au chargement |
-| `UpdateGlobalSettings()` | `updateGlobalSettings()` | Met à jour les global settings |
-| `RequestInstalledModules()` | `requestInstalledModules()` | Demande les modules DCS |
-| `callbackRequestIdLookup()` | `requestIdLookup()` | Demande les clickabledata |
-| `gotInstalledModules()` | `window.gotInstalledModules` | Callback pour recevoir modules |
-| `gotClickabledata()` | `window.gotClickabledata` | Callback pour recevoir clickabledata |
-| `modifyInstalledModulesList()` | `modifyModulesList()` | Traite cas spéciaux (L-39, C-101) |
-| `callbackImportDcsCommand()` | `importDcsCommand()` | Import commande DCS |
-| `callbackImportImageChange()` | `importImageChange()` | Import changement image |
-| `callbackImportTextChange()` | `importTextChange()` | Import changement texte |
+| `sendmessage()` | `sendMessage()` | Sends message to window.opener |
+| `loaded()` + `restoreGlobalSettings()` | `useEffect()` mount | Restores settings on load |
+| `UpdateGlobalSettings()` | `updateGlobalSettings()` | Updates global settings |
+| `RequestInstalledModules()` | `requestInstalledModules()` | Requests DCS modules |
+| `callbackRequestIdLookup()` | `requestIdLookup()` | Requests clickabledata |
+| `gotInstalledModules()` | `window.gotInstalledModules` | Callback to receive modules |
+| `gotClickabledata()` | `window.gotClickabledata` | Callback to receive clickabledata |
+| `modifyInstalledModulesList()` | `modifyModulesList()` | Handles special cases (L-39, C-101) |
+| `callbackImportDcsCommand()` | `importDcsCommand()` | Import DCS command |
+| `callbackImportImageChange()` | `importImageChange()` | Import image change |
+| `callbackImportTextChange()` | `importTextChange()` | Import text change |
 
-### Changements Clés dans les Property Inspectors
+### Key Changes in Property Inspectors
 
 **ButtonPropertyInspector.tsx & EncoderPropertyInspector.tsx:**
 
 ```typescript
-// AVANT (Incorrect - envoyait un objet)
+// BEFORE (Incorrect - sent an object)
 sendToPluginGlobal({
   event: "RequestInstalledModules",
   dcs_install_path: parameter.payload.dcs_install_path,
   dcs_savedgames_path: parameter.payload.dcs_savedgames_path,
 });
 
-// APRÈS (Correct - suit le code original qui envoie juste le path string)
+// AFTER (Correct - follows original code which sends just the path string)
 sendToPluginGlobal({
   event: "RequestInstalledModules",
-  dcs_install_path: String(parameter.payload), // Le payload EST le path!
+  dcs_install_path: String(parameter.payload), // The payload IS the path!
 });
 ```
 
-### Changements dans `usePropertyInspector.ts`
+### Changes in `usePropertyInspector.ts`
 
-**Forwarding des données au IdLookupWindow:**
+**Forwarding data to IdLookupWindow:**
 
 ```typescript
-// Suit exactement sendToIdLookupWindowInstalledModules() du code original
+// Follows exactly sendToIdLookupWindowInstalledModules() from original code
 if (payload.event === "InstalledModules" && payload.installed_modules) {
   if (window.idLookupWindow && !window.idLookupWindow.closed) {
     const idLookupWin = window.idLookupWindow as Window & { 
@@ -67,7 +67,7 @@ if (payload.event === "InstalledModules" && payload.installed_modules) {
   }
 }
 
-// Suit exactement sendToIdLookupWindowClickabledata() du code original
+// Follows exactly sendToIdLookupWindowClickabledata() from original code
 if (payload.event === "Clickabledata" && payload.clickabledata) {
   if (window.idLookupWindow && !window.idLookupWindow.closed) {
     const idLookupWin = window.idLookupWindow as Window & { 
@@ -80,17 +80,17 @@ if (payload.event === "Clickabledata" && payload.clickabledata) {
 }
 ```
 
-## 📊 Flux de Communication Simplifié
+## 📊 Simplified Communication Flow
 
 ```
 ┌──────────────────────────────────┐
 │  IdLookupWindowSimple.tsx        │
 │                                  │
-│  1. loaded() au montage:         │
-│     - Lit window.opener.global.. │
-│     - Expose gotInstalledModules │
-│     - Expose gotClickabledata    │
-│     - Appelle requestInstalled.. │
+│  1. loaded() on mount:           │
+│     - Reads window.opener.global │
+│     - Exposes gotInstalledModules│
+│     - Exposes gotClickabledata   │
+│     - Calls requestInstalled...  │
 └──────────────┬───────────────────┘
                │ sendMessage()
                ↓
@@ -112,7 +112,7 @@ if (payload.event === "Clickabledata" && payload.clickabledata) {
 ┌──────────────────────────────────┐
 │  C++ Backend Plugin              │
 │                                  │
-│  → Traite la requête             │
+│  → Processes request             │
 │  → sendToPropertyInspector()     │
 └──────────────┬───────────────────┘
                │ WebSocket
@@ -121,7 +121,7 @@ if (payload.event === "Clickabledata" && payload.clickabledata) {
 │  usePropertyInspector.ts         │
 │                                  │
 │  websocket.onmessage()           │
-│    → Forward à IdLookupWindow    │
+│    → Forward to IdLookupWindow   │
 └──────────────┬───────────────────┘
                │
                ↓
@@ -130,45 +130,45 @@ if (payload.event === "Clickabledata" && payload.clickabledata) {
 │                                  │
 │  window.gotInstalledModules()    │
 │  window.gotClickabledata()       │
-│    → Affiche les données         │
+│    → Displays data               │
 └──────────────────────────────────┘
 ```
 
-## 🎯 Simplicité vs Complexité
+## 🎯 Simplicity vs Complexity
 
-### ❌ Ancien Code (Trop Complexe)
-- Utilisait `handleSendToPropertyInspector()`
-- Gestion complexe des messages via events
-- Confusion entre payload objet et payload string
-- Messages envoyés avec mauvais contextes WebSocket
+### ❌ Old Code (Too Complex)
+- Used `handleSendToPropertyInspector()`
+- Complex message handling via events
+- Confusion between object payload and string payload
+- Messages sent with wrong WebSocket contexts
 
-### ✅ Nouveau Code (Simple et Propre)
-- **Suit exactement le code JavaScript original**
-- Communication directe via `window.opener`
-- Callbacks simples exposés sur window
-- Pas de confusion sur les types de payload
-- Pas d'erreur de contexte WebSocket
+### ✅ New Code (Simple and Clean)
+- **Follows exactly the original JavaScript code**
+- Direct communication via `window.opener`
+- Simple callbacks exposed on window
+- No confusion about payload types
+- No WebSocket context errors
 
-## 📝 Fichiers Modifiés
+## 📝 Modified Files
 
-1. **Nouveau:** `windows/IdLookupWindowSimple.tsx`
-   - Migration propre depuis `id_lookup_window_functions.js`
-   - Logique identique au code original
-   - Interface utilisateur modernisée en React
+1. **New:** `windows/IdLookupWindowSimple.tsx`
+   - Clean migration from `id_lookup_window_functions.js`
+   - Logic identical to original code
+   - Modernized UI in React
 
-2. **Modifié:** `index.tsx`
-   - Utilise `IdLookupWindowSimple` au lieu de `IdLookupWindow`
+2. **Modified:** `index.tsx`
+   - Uses `IdLookupWindowSimple` instead of `IdLookupWindow`
 
-3. **Modifié:** `propertyinspectors/ButtonPropertyInspector.tsx`
-   - Correction de `RequestInstalledModules` (payload = string, pas objet)
-   - Correction de `RequestIdLookup` (pas de dcs_savedgames_path)
+3. **Modified:** `propertyinspectors/ButtonPropertyInspector.tsx`
+   - Fixed `RequestInstalledModules` (payload = string, not object)
+   - Fixed `RequestIdLookup` (no dcs_savedgames_path)
 
-4. **Modifié:** `propertyinspectors/EncoderPropertyInspector.tsx`
-   - Mêmes corrections que ButtonPropertyInspector
+4. **Modified:** `propertyinspectors/EncoderPropertyInspector.tsx`
+   - Same fixes as ButtonPropertyInspector
 
-5. **Modifié:** `hooks/usePropertyInspector.ts`
-   - Forwarding simplifié vers IdLookupWindow
-   - Appelle directement `gotInstalledModules()` et `gotClickabledata()`
+5. **Modified:** `hooks/usePropertyInspector.ts`
+   - Simplified forwarding to IdLookupWindow
+   - Directly calls `gotInstalledModules()` and `gotClickabledata()`
 
 ## 🧪 Test
 
@@ -176,41 +176,41 @@ if (payload.event === "Clickabledata" && payload.clickabledata) {
 cd D:\dev\streamdeck-dcs-interface-fork\Sources\frontend-react-js
 npm run build:all
 
-# Vérifier que idlookup-react est généré
+# Verify that idlookup-react is generated
 dir ..\com.ctytler.dcs.sdPlugin\propertyinspector\idlookup-react
 ```
 
-**Taille du build:** 46.83 kB (plus petit que l'ancienne version complexe!)
+**Build size:** 46.83 kB (smaller than the old complex version!)
 
-## ✅ Avantages de Cette Approche
+## ✅ Advantages of This Approach
 
-1. **Fidélité au code original:** Chaque fonction JS a son équivalent React direct
-2. **Simplicité:** Pas de sur-ingénierie, pas de gestionnaires complexes
-3. **Maintenabilité:** Facile à comprendre et déboguer
-4. **Performance:** Code plus léger (46.83 kB vs 47 kB avant)
-5. **Fiabilité:** Suit un pattern qui fonctionne déjà dans la version HTML/JS
+1. **Fidelity to original code:** Each JS function has its direct React equivalent
+2. **Simplicity:** No over-engineering, no complex handlers
+3. **Maintainability:** Easy to understand and debug
+4. **Performance:** Lighter code (46.83 kB vs 47 kB before)
+5. **Reliability:** Follows a pattern that already works in the HTML/JS version
 
-## 🎓 Leçon Apprise
+## 🎓 Lesson Learned
 
-> **"Parfois, la meilleure solution est de repartir de zéro en suivant le code qui fonctionne"**
+> **"Sometimes, the best solution is to start over by following the code that works"**
 
-Au lieu de déboguer des couches de complexité ajoutées par erreur, nous avons:
-1. Analysé le code JavaScript original qui fonctionne
-2. Migré fonction par fonction vers React
-3. Gardé la même logique, juste avec React pour l'UI
+Instead of debugging layers of complexity added by mistake, we:
+1. Analyzed the working original JavaScript code
+2. Migrated function by function to React
+3. Kept the same logic, just with React for the UI
 
-## 📋 Checklist de Test
+## 📋 Test Checklist
 
-- [ ] Ouvrir Stream Deck
-- [ ] Ajouter un bouton "Switch Input"
-- [ ] Cliquer "ID Lookup" dans Property Inspector
-- [ ] Vérifier que la fenêtre s'ouvre
-- [ ] Path DCS pré-rempli automatiquement
-- [ ] Cliquer "Update" charge les modules
-- [ ] Dropdown montre les avions DCS installés
-- [ ] Sélectionner un module charge les données
-- [ ] Table affiche les clickabledata
-- [ ] Recherche fonctionne
-- [ ] Sélectionner une ligne active les boutons Import
-- [ ] Import DCS Command fonctionne
-- [ ] ✅ **AUCUNE erreur "wrong context" dans les logs!**
+- [ ] Open Stream Deck
+- [ ] Add a "Switch Input" button
+- [ ] Click "ID Lookup" in Property Inspector
+- [ ] Verify window opens
+- [ ] DCS path pre-filled automatically
+- [ ] Click "Update" loads modules
+- [ ] Dropdown shows installed DCS aircraft
+- [ ] Select module loads data
+- [ ] Table displays clickabledata
+- [ ] Search works
+- [ ] Select row activates Import buttons
+- [ ] Import DCS Command works
+- [ ] ✅ **NO "wrong context" errors in logs!**

@@ -1,177 +1,177 @@
-# Migration React - Synthèse Complète
+# React Migration - Complete Summary
 
-## ✅ Réalisations
+## ✅ Achievements
 
-### 1. Architecture Unifiée
-**Problème résolu** : Pas de duplication de projet React
-- ✅ Intégration dans `frontend-react-js/` existant
-- ✅ Réutilisation de `node_modules/` et configuration
-- ✅ Compatible avec `build_plugin_cmake.bat`
+### 1. Unified Architecture
+**Problem solved**: No React project duplication
+- ✅ Integration into existing `frontend-react-js/`
+- ✅ Reuse of `node_modules/` and configuration
+- ✅ Compatible with `build_plugin_cmake.bat`
 
-### 2. Structure Créée
+### 2. Structure Created
 
 ```
 frontend-react-js/
 ├── src/
 │   ├── hooks/
-│   │   └── usePropertyInspector.ts       ✅ Hook WebSocket pour PIs
+│   │   └── usePropertyInspector.ts       ✅ WebSocket hook for PIs
 │   ├── types/
-│   │   └── PropertyInspectorTypes.ts     ✅ Types TypeScript
+│   │   └── PropertyInspectorTypes.ts     ✅ TypeScript types
 │   ├── components/
-│   │   ├── ValueMappingRow.tsx           ✅ Composant mapping
+│   │   ├── ValueMappingRow.tsx           ✅ Mapping component
 │   │   ├── ValueMappingRow.module.css
-│   │   ├── ValueMappingList.tsx          ✅ Liste de mappings
+│   │   ├── ValueMappingList.tsx          ✅ Mappings list
 │   │   └── ValueMappingList.module.css
 │   ├── propertyinspectors/
-│   │   ├── EncoderPropertyInspector.tsx  ✅ PI Encodeur complet
+│   │   ├── EncoderPropertyInspector.tsx  ✅ Complete Encoder PI
 │   │   └── EncoderPropertyInspector.module.css
-│   ├── App.tsx                           ✅ DCS-BIOS config (existant)
-│   └── index.tsx                         ✅ Router modifié
-├── package.json                          ✅ Scripts de build ajoutés
+│   ├── App.tsx                           ✅ DCS-BIOS config (existing)
+│   └── index.tsx                         ✅ Modified router
+├── package.json                          ✅ Build scripts added
 └── PROPERTYINSPECTORS.md                 ✅ Documentation
 ```
 
-### 3. Builds Configurés
+### 3. Configured Builds
 
-**Scripts npm disponibles** :
+**Available npm scripts**:
 ```bash
-npm run build              # Settings window (existant)
+npm run build              # Settings window (existing)
 npm run build:encoder-pi   # Encoder PI → propertyinspector/encoder-react/
-npm run build:button-pi    # Button PI (à implémenter)
-npm run build:dcsbios-pi   # DCS-BIOS PI (à implémenter)
-npm run build:all          # Tout
+npm run build:button-pi    # Button PI (to implement)
+npm run build:dcsbios-pi   # DCS-BIOS PI (to implement)
+npm run build:all          # Everything
 ```
 
-**Résultat du build test** : ✅ **SUCCÈS**
+**Test build result**: ✅ **SUCCESS**
 ```
 File sizes after gzip:
   46.77 kB  encoder-react\static\js\main.3f91b639.js
   3.49 kB   encoder-react\static\css\main.b15e8975.css
 ```
 
-### 4. Fonctionnalités Implémentées
+### 4. Implemented Features
 
-**EncoderPropertyInspector** :
+**EncoderPropertyInspector**:
 - ✅ Rotation settings (CW/CCW, range, cycling)
 - ✅ Press settings (fixed value)
-- ✅ Value mappings avec texte/image
-- ✅ Couleurs avancées per-value (text/background)
-- ✅ Serialization/Deserialization backward compatible
-- ✅ Boutons Help (ID Lookup, Help, DCS Comms)
+- ✅ Value mappings with text/image
+- ✅ Advanced per-value colors (text/background)
+- ✅ Backward compatible Serialization/Deserialization
+- ✅ Help buttons (ID Lookup, Help, DCS Comms)
 
-**Composants réutilisables** :
-- ✅ `ValueMappingRow` - Ligne avec ⚙ advanced settings
-- ✅ `ValueMappingList` - Liste complète avec add/delete
+**Reusable components**:
+- ✅ `ValueMappingRow` - Row with ⚙ advanced settings
+- ✅ `ValueMappingList` - Complete list with add/delete
 
-## 📋 Prochaines Étapes
+## 📋 Next Steps
 
-### Phase 1: Finalisation Encodeur (Maintenant)
+### Phase 1: Encoder Finalization (Now)
 
-1. **Tester le PI React** :
+1. **Test React PI**:
    ```bash
-   # Optionnel: Mettre à jour manifest.json
+   # Optional: Update manifest.json
    # "PropertyInspectorPath": "propertyinspector/encoder-react/index.html"
    
-   # Rebuild plugin complet
+   # Rebuild complete plugin
    cd Tools
    .\build_plugin_cmake.bat
    ```
 
-2. **Validation** :
-   - Installer le plugin dans Stream Deck
-   - Vérifier connexion WebSocket
-   - Tester toutes les fonctionnalités
-   - Valider sauvegarde des settings
+2. **Validation**:
+   - Install plugin in Stream Deck
+   - Verify WebSocket connection
+   - Test all functionalities
+   - Validate settings save
 
-### Phase 2: Migration Complète
+### Phase 2: Complete Migration
 
-3. **ButtonPropertyInspector** :
-   - Créer `src/propertyinspectors/ButtonPropertyInspector.tsx`
-   - Migrer sections de `index.html`
-   - Build avec `npm run build:button-pi`
+3. **ButtonPropertyInspector**:
+   - Create `src/propertyinspectors/ButtonPropertyInspector.tsx`
+   - Migrate sections from `index.html`
+   - Build with `npm run build:button-pi`
 
-4. **DcsBiosPropertyInspector** :
-   - Simple bouton "Configure"
-   - Build avec `npm run build:dcsbios-pi`
+4. **DcsBiosPropertyInspector**:
+   - Simple "Configure" button
+   - Build with `npm run build:dcsbios-pi`
 
 ### Phase 3: Cleanup
 
-5. **Dépréciation HTML** :
-   - Une fois tests OK, supprimer anciens `.html`
-   - Nettoyer `js/` et `css/` legacy
-   - Mettre à jour `manifest.json` définitivement
+5. **HTML Deprecation**:
+   - Once tests OK, remove old `.html`
+   - Clean up legacy `js/` and `css/`
+   - Update `manifest.json` definitively
 
-## 🔧 Modifications du Build Script
+## 🔧 Build Script Modifications
 
-**Optionnel** : Modifier `build_plugin_cmake.bat` pour builder les PIs :
+**Optional**: Modify `build_plugin_cmake.bat` to build PIs:
 
 ```bat
-:: Ligne 133 - Remplacer:
+:: Line 133 - Replace:
 call npm run build
 
-:: Par:
+:: With:
 call npm run build:all
 ```
 
-Ou laisser tel quel et builder les PIs manuellement quand nécessaire.
+Or leave as is and build PIs manually when needed.
 
-## 📝 Avantages de cette Architecture
+## 📝 Architecture Benefits
 
-### 1. Pas de Duplication
-- ✅ Un seul projet React
-- ✅ Un seul `node_modules/`
-- ✅ Une seule configuration
+### 1. No Duplication
+- ✅ Single React project
+- ✅ Single `node_modules/`
+- ✅ Single configuration
 
-### 2. Réutilisation
-- ✅ Hook `usePropertyInspector` partagé
-- ✅ Composants UI réutilisables
-- ✅ Types TypeScript communs
+### 2. Reusability
+- ✅ Shared `usePropertyInspector` hook
+- ✅ Reusable UI components
+- ✅ Common TypeScript types
 
-### 3. Maintenabilité
-- ✅ Code organisé et modulaire
-- ✅ CSS Modules (pas de conflits)
-- ✅ TypeScript strict
+### 3. Maintainability
+- ✅ Organized and modular code
+- ✅ CSS Modules (no conflicts)
+- ✅ Strict TypeScript
 
 ### 4. Performance
-- ✅ Bundles optimisés (46KB gzipped)
+- ✅ Optimized bundles (46KB gzipped)
 - ✅ React Virtual DOM
-- ✅ Code splitting possible
+- ✅ Possible code splitting
 
 ### 5. Developer Experience
-- ✅ Hot reload en dev
-- ✅ Auto-complétion TypeScript
-- ✅ Debugging React DevTools
+- ✅ Hot reload in dev
+- ✅ TypeScript auto-completion
+- ✅ React DevTools debugging
 
-## 🐛 Notes sur les Warnings
+## 🐛 Notes on Warnings
 
-Build réussi avec warnings TypeScript mineurs :
+Successful build with minor TypeScript warnings:
 ```
 Unexpected any. Specify a different type
 ```
 
-**À corriger éventuellement** (non-bloquant) :
-- Typer les messages WebSocket
-- Typer les payloads Stream Deck
+**To fix eventually** (non-blocking):
+- Type WebSocket messages
+- Type Stream Deck payloads
 
 ## 📚 Documentation
 
-- [ENCODER_DISPLAY_IMPLEMENTATION.md](../ENCODER_DISPLAY_IMPLEMENTATION.md) - Backend C++
-- [REACT_MIGRATION_GUIDE.md](../REACT_MIGRATION_GUIDE.md) - Guide migration (obsolète, remplacé par cette intégration)
-- [PROPERTYINSPECTORS.md](PROPERTYINSPECTORS.md) - Documentation frontend
+- [ENCODER_DISPLAY_IMPLEMENTATION.md](../ENCODER_DISPLAY_IMPLEMENTATION.md) - C++ Backend
+- [REACT_MIGRATION_GUIDE.md](../REACT_MIGRATION_GUIDE.md) - Migration guide (obsolete, replaced by this integration)
+- [PROPERTYINSPECTORS.md](PROPERTYINSPECTORS.md) - Frontend documentation
 
-## ✨ Résumé
+## ✨ Summary
 
-**Objectif initial** : Migrer les Property Inspectors vers React
+**Initial goal**: Migrate Property Inspectors to React
 
-**Solution retenue** : Intégration dans `frontend-react-js/` existant
+**Chosen solution**: Integration into existing `frontend-react-js/`
 
-**État actuel** :
-- ✅ Infrastructure complète
-- ✅ EncoderPropertyInspector fonctionnel
-- ✅ Build testé et opérationnel
-- ⏳ Tests hardware à faire
-- ⏳ Migration autres PIs à venir
+**Current status**:
+- ✅ Complete infrastructure
+- ✅ Functional EncoderPropertyInspector
+- ✅ Tested and operational build
+- ⏳ Hardware tests to do
+- ⏳ Other PIs migration to come
 
-**Impact sur workflow** : **Aucun changement requis** pour `build_plugin_cmake.bat`
+**Workflow impact**: **No changes required** for `build_plugin_cmake.bat`
 
-La migration est **prête pour les tests** ! 🚀
+Migration is **ready for testing**! 🚀

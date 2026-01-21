@@ -426,8 +426,8 @@ ElgatoSD\CMakeFiles\ElgatoSD.dir\clean:
 # Target rules for target StreamdeckContext/CMakeFiles/StreamdeckContext.dir
 
 # All Build rule for target.
-StreamdeckContext\CMakeFiles\StreamdeckContext.dir\all: SimulatorInterface\CMakeFiles\SimulatorInterface.dir\all
 StreamdeckContext\CMakeFiles\StreamdeckContext.dir\all: Utilities\CMakeFiles\Utilities.dir\all
+StreamdeckContext\CMakeFiles\StreamdeckContext.dir\all: SimulatorInterface\CMakeFiles\SimulatorInterface.dir\all
 	$(MAKE) $(MAKESILENT) -f StreamdeckContext\CMakeFiles\StreamdeckContext.dir\build.make /nologo -$(MAKEFLAGS) StreamdeckContext\CMakeFiles\StreamdeckContext.dir\depend
 	$(MAKE) $(MAKESILENT) -f StreamdeckContext\CMakeFiles\StreamdeckContext.dir\build.make /nologo -$(MAKEFLAGS) StreamdeckContext\CMakeFiles\StreamdeckContext.dir\build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\dev\streamdeck-dcs-interface-fork\Sources\backend-cpp\build\CMakeFiles --progress-num=34,35,36,37,38,39,40,41,42,43,44,45 "Built target StreamdeckContext"
@@ -453,8 +453,8 @@ StreamdeckContext\CMakeFiles\StreamdeckContext.dir\clean:
 # Target rules for target StreamdeckInterface/CMakeFiles/streamdeck_dcs_interface.dir
 
 # All Build rule for target.
-StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\all: SimulatorInterface\CMakeFiles\SimulatorInterface.dir\all
 StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\all: Utilities\CMakeFiles\Utilities.dir\all
+StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\all: SimulatorInterface\CMakeFiles\SimulatorInterface.dir\all
 StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\all: ElgatoSD\CMakeFiles\ElgatoSD.dir\all
 StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\all: StreamdeckContext\CMakeFiles\StreamdeckContext.dir\all
 	$(MAKE) $(MAKESILENT) -f StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\build.make /nologo -$(MAKEFLAGS) StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\depend
@@ -484,8 +484,8 @@ StreamdeckInterface\CMakeFiles\streamdeck_dcs_interface.dir\clean:
 # All Build rule for target.
 Test\CMakeFiles\StreamDeckDCSTests.dir\all: _deps\googletest-build\googletest\CMakeFiles\gtest.dir\all
 Test\CMakeFiles\StreamDeckDCSTests.dir\all: _deps\googletest-build\googletest\CMakeFiles\gtest_main.dir\all
-Test\CMakeFiles\StreamDeckDCSTests.dir\all: SimulatorInterface\CMakeFiles\SimulatorInterface.dir\all
 Test\CMakeFiles\StreamDeckDCSTests.dir\all: Utilities\CMakeFiles\Utilities.dir\all
+Test\CMakeFiles\StreamDeckDCSTests.dir\all: SimulatorInterface\CMakeFiles\SimulatorInterface.dir\all
 Test\CMakeFiles\StreamDeckDCSTests.dir\all: ElgatoSD\CMakeFiles\ElgatoSD.dir\all
 Test\CMakeFiles\StreamDeckDCSTests.dir\all: StreamdeckContext\CMakeFiles\StreamdeckContext.dir\all
 	$(MAKE) $(MAKESILENT) -f Test\CMakeFiles\StreamDeckDCSTests.dir\build.make /nologo -$(MAKEFLAGS) Test\CMakeFiles\StreamDeckDCSTests.dir\depend

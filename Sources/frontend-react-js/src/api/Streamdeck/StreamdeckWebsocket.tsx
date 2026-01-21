@@ -178,22 +178,34 @@ export function useStreamdeckWebsocket(socketSettings: StreamdeckSocketSettings)
 
     // Websocket connect and shutdown setup.
     useEffect(() => {
+        console.log("=== Creating WebSocket ===");
+        console.log("Port:", socketSettings.port);
+        console.log("Full URL:", "ws://127.0.0.1:" + socketSettings.port);
+        console.log("UUID:", socketSettings.propertyInspectorUUID);
+        console.log("RegisterEvent:", socketSettings.registerEvent);
+        
         websocket.current = new WebSocket("ws://127.0.0.1:" + socketSettings.port)
         websocket.current.onopen = () => {
-            console.debug("Connected to Streamdeck Websocket.");
+            console.log("✅ WebSocket CONNECTED");
+            console.log("Registering with:", {
+                event: socketSettings.registerEvent,
+                uuid: socketSettings.propertyInspectorUUID
+            });
             registerPropertyInspector();
             commFns.getGlobalSettings();
             commFns.getSettings();
         }
         websocket.current.onmessage = (msg: MessageEvent) => {
+            console.log("📨 Received message:", msg.data);
             onReceivedMessage(msg.data);
         }
         websocket.current.onerror = function (event: Event) {
-            console.warn('WEBOCKET ERROR', event);
+            console.error('❌ WEBSOCKET ERROR', event);
         };
         websocket.current.onclose = function (event: CloseEvent) {
             // Websocket is closed
             const reason = event.reason || WEBSOCKETERROR(event);
+            console.warn('🔌 WebSocket CLOSED:', event.code, reason);
         };
         return function onUnmount() {
             websocket.current?.close();

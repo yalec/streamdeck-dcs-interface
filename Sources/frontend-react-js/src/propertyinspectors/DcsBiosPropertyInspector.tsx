@@ -1,17 +1,62 @@
-import { useState } from "react";
-import { usePropertyInspector } from "../hooks/usePropertyInspector";
+import { useState, useEffect } from "react";
 import styles from "./DcsBiosPropertyInspector.module.css";
 
-// Extend Window type to store config window reference
+// Extend Window type to store config window reference and socket settings
 declare global {
   interface Window {
     configWindow?: Window | null;
+    socketSettings?: {
+      port: string;
+      propertyInspectorUUID: string;
+      registerEvent: string;
+      info: string;
+      action: string;
+    };
+    settings?: Record<string, unknown>;
+    connectElgatoStreamDeckSocket?: (
+      inPort: string,
+      inPropertyInspectorUUID: string,
+      inRegisterEvent: string,
+      inInfo: string,
+      inActionInfo: string
+    ) => void;
   }
 }
 
 const DcsBiosPropertyInspector: React.FC = () => {
-  // usePropertyInspector automatically stores window.socketSettings and window.settings
-  usePropertyInspector();
+  // Store socket settings WITHOUT creating a WebSocket connection
+  // Only the popup window will create the WebSocket
+  useEffect(() => {
+    window.connectElgatoStreamDeckSocket = (
+      inPort: string,
+      inPropertyInspectorUUID: string,
+      inRegisterEvent: string,
+      inInfo: string,
+      inActionInfo: string
+    ) => {
+      console.log("=== DcsBiosPropertyInspector: connectElgatoStreamDeckSocket called ===");
+      
+      // Parse action info
+      const inAction = JSON.parse(inActionInfo);
+      
+      // Store settings to window object (for popup window to access)
+      window.socketSettings = {
+        port: inPort,
+        propertyInspectorUUID: inPropertyInspectorUUID,
+        registerEvent: inRegisterEvent,
+        info: inInfo,
+        action: inAction["action"],
+      };
+      window.settings = inAction["payload"]?.settings || inAction["settings"] || {};
+      
+      console.log("Stored socketSettings:", window.socketSettings);
+      console.log("Stored settings:", window.settings);
+      
+      // DO NOT create WebSocket here - only the popup window should do that
+    };
+    
+    console.log("DcsBiosPropertyInspector: connectElgatoStreamDeckSocket registered");
+  }, []);
   
   const [configWindowOpen, setConfigWindowOpen] = useState(false);
   const [userMessage, setUserMessage] = useState("");
@@ -19,7 +64,7 @@ const DcsBiosPropertyInspector: React.FC = () => {
   const handleConfigureClick = () => {
     // Only open if socketSettings are available and no window is already open
     if (window.socketSettings && (!window.configWindow || window.configWindow.closed)) {
-      window.configWindow = window.open("../settingsUI/index.html", "Button Configuration");
+      window.configWindow = window.open("../../windows/dcsbios/index.html", "Button Configuration");
 
       // Disable button to prevent multiple windows (matches original behavior)
       setConfigWindowOpen(true);

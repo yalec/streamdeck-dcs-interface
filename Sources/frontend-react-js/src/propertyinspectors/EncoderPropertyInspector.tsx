@@ -58,9 +58,9 @@ const EncoderPropertyInspector: React.FC = () => {
 
   const openExternalWindow = (windowName: "idLookup" | "help" | "comms") => {
     const urls = {
-      idLookup: "../../propertyinspector/idlookup-react/index.html",
+      idLookup: "../../windows/idlookup/index.html",
       help: "../../helpDocs/helpWindow.html",
-      comms: "../../propertyinspector/comms-react/index.html",
+      comms: "../../windows/comms/index.html",
     };
 
     const titles = {

@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 
 // Property Inspectors
 import EncoderPropertyInspector from "./propertyinspectors/EncoderPropertyInspector";
@@ -11,6 +10,7 @@ import DcsBiosPropertyInspector from "./propertyinspectors/DcsBiosPropertyInspec
 // External Windows
 import IdLookupWindow from "./windows/IdLookupWindow";
 import CommsWindow from "./windows/CommsWindow";
+import DCBiosWindow from "./windows/DCBiosWindow";
 
 // Detect context based on URL parameters or window properties
 const urlParams = new URLSearchParams(window.location.search);
@@ -28,9 +28,12 @@ if (windowBuildType === "idlookup" || windowType === "idlookup") {
 } else if (windowBuildType === "comms" || windowType === "comms") {
   // Comms external window
   Component = CommsWindow;
+} else if (windowBuildType === "dcsbios" || windowType === "dcsbios") {
+  // DCS BIOS configuration window
+  Component = DCBiosWindow;
 } else if (isConfigWindow) {
-  // This is the DCS-BIOS configuration popup window opened from dcs_bios_prop_inspector.html
-  Component = App;
+  // Legacy compatibility: DCS-BIOS configuration popup window opened from old dcs_bios_prop_inspector.html
+  Component = DCBiosWindow;
 } else {
   // This is a Property Inspector embedded in Stream Deck
   switch (piType) {
@@ -46,7 +49,7 @@ if (windowBuildType === "idlookup" || windowType === "idlookup") {
     default:
       // No PI_TYPE and not a config window - this should not happen in production
       console.error("No REACT_APP_PI_TYPE specified for Property Inspector build");
-      Component = App; // Fallback
+      Component = DCBiosWindow; // Fallback to DCBios window
   }
 }
 

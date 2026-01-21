@@ -15,13 +15,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/settingsUI\" && react-scripts build",
+    "build": "echo \"WARNING: Default build is deprecated. Use build:dcsbios-window instead\" && set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/windows/dcsbios\" && set \"REACT_APP_WINDOW_TYPE=dcsbios\" && react-scripts build",
     "build:encoder-pi": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/propertyinspector/encoder-react\" && set \"REACT_APP_PI_TYPE=encoder\" && react-scripts build",
     "build:button-pi": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/propertyinspector/button-react\" && set \"REACT_APP_PI_TYPE=button\" && react-scripts build",
     "build:dcsbios-pi": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/propertyinspector/dcsbios-react\" && set \"REACT_APP_PI_TYPE=dcsbios\" && react-scripts build",
-    "build:idlookup-window": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/propertyinspector/idlookup-react\" && set \"REACT_APP_WINDOW_TYPE=idlookup\" && react-scripts build",
-    "build:comms-window": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/propertyinspector/comms-react\" && set \"REACT_APP_WINDOW_TYPE=comms\" && react-scripts build",
-    "build:all": "npm run build && npm run build:encoder-pi && npm run build:button-pi && npm run build:dcsbios-pi && npm run build:idlookup-window && npm run build:comms-window",
+    "build:idlookup-window": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/windows/idlookup\" && set \"REACT_APP_WINDOW_TYPE=idlookup\" && react-scripts build",
+    "build:comms-window": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/windows/comms\" && set \"REACT_APP_WINDOW_TYPE=comms\" && react-scripts build",
+    "build:dcsbios-window": "set \"BUILD_PATH=../com.ctytler.dcs.sdPlugin/windows/dcsbios\" && set \"REACT_APP_WINDOW_TYPE=dcsbios\" && react-scripts build",
+    "build:all": "npm run build:encoder-pi && npm run build:button-pi && npm run build:dcsbios-pi && npm run build:idlookup-window && npm run build:comms-window && npm run build:dcsbios-window",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js src/**/*.tsx"

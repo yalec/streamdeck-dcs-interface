@@ -43,7 +43,7 @@ function handleButtonPress() {
     // Only open if socketSettings have been populated and if there is not already a Configure window open.
     if (window.socketSettings && (!window.configWindow || window.configWindow.closed)) {
         window.configWindow = window.open(
-            "../settingsUI/index.html",
+            "../../windows/dcsbios/index.html",
             "Button Configuration"
         );
         // Temporary fix for inability to reconnect websocket multiple times.
